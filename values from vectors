@@ -1,0 +1,31 @@
+function spec_stat(length,position,total,title,name)
+%List of arrays that are of equal length:
+%Makes a new array with the elements from a position in those arrays.
+%Total is the name of the array that the numbers are taken from.
+%Title is the name of the array that the string labels are taken from.
+%Name is what you wish to call the new array.
+tic
+%Collects the values that are desired.
+x = 1;
+y = 1;
+element = ones(1,numel(total));
+while x < (numel(total))
+    if y < (numel(total)/length+1)
+        element(y) = (total((x-1)*length+position));
+    end
+    y = y+1;
+    x = x+1;
+end
+element(element==1) = [];
+%Sorts values and creates vector I with old position values.
+[element,I] = sort(element,2);
+element = string(element);
+%Uses I to assign names to the values.
+z = 1;
+while z < (numel(element) + 1)
+    element(z) = strcat(string(title(I(z))), ':', element(z));
+    z = z + 1;
+end
+%Sends the new variable to the workspace.
+assignin('base', name , element)
+toc
